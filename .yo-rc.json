@@ -1,0 +1,15 @@
+{
+	"generator-ui5-ts-app": {
+		"application": "adventurogram",
+		"namespace": "com.dardan.rrafshi",
+		"framework": "OpenUI5",
+		"frameworkVersion": "1.114.0",
+		"author": "Dardan Rrafshi",
+		"initrepo": false,
+		"tstypes": "@openui5/types",
+		"tstypesVersion": "1.114.0",
+		"appId": "com.dardan.rrafshi.adventurogram",
+		"appURI": "com/dardan/rrafshi/adventurogram",
+		"setupCompleted": true
+	}
+}
