@@ -13,46 +13,91 @@ import History from "sap/ui/core/routing/History";
  */
 export default abstract class BaseController extends Controller
 {
-	public getOwnerComponent(): AppComponent
+	public onBackward()
 	{
-		return super.getOwnerComponent() as AppComponent;
+		const history = History.getInstance();
+		const previousHash = history.getPreviousHash();
+
+		if(previousHash === undefined) {
+			this.navigateTo("main", {}, true);
+		} else {
+			window.history.back();
+		}
 	}
 
-	public getRouter() : Router
+	public navigateTo(name: string, parameters?: object, replace?: boolean)
+	{
+		const router = this.getRouter();
+		router.navTo(name, parameters, undefined, replace);
+	}
+
+	public getRouter(): Router
 	{
 		return UIComponent.getRouterFor(this);
 	}
 
+
 	public getResourceBundle(): ResourceBundle | Promise<ResourceBundle>
 	{
-		const model = this.getOwnerComponent().getModel("i18n") as ResourceModel;
+		const model = this.getComponentModel("i18n") as ResourceModel;
 		return model.getResourceBundle();
 	}
 
-	public getModel(name?: string) : Model
+	public getDeviceModel(): Model
+	{
+		return this.getComponentModel("deviceModel");
+	}
+
+	public getConfigModel(): Model
+	{
+		return this.getComponentModel("configModel");
+	}
+
+	public getDataModel(): Model
+	{
+		return this.getComponentModel("dataModel");
+	}
+	
+	public getViewModel(name?: string): Model
 	{
 		return this.getView().getModel(name);
 	}
 
-	public setModel(model: Model, name?: string) : BaseController
+	public setViewModel(model: Model, name?: string)
 	{
 		this.getView().setModel(model, name);
-		return this;
 	}
 
-	public navTo(name: string, parameters?: object, replace?: boolean)
+	public getComponentModel(name?: string): Model
 	{
-		this.getRouter().navTo(name, parameters, undefined, replace);
+		return this.getAppComponent().getModel(name);
 	}
 
-	public onNavBack()
+	public setComponentModel(model: Model, name?: string)
 	{
-		const previousHash = History.getInstance().getPreviousHash();
+		return this.getAppComponent().setModel(model, name);
+	}
+	
+	public getAppComponent(): AppComponent
+	{
+		return super.getOwnerComponent() as AppComponent;
+	}
 
-		if (previousHash !== undefined) {
-			window.history.go(-1);
-		} else {
-			this.getRouter().navTo("main", {}, undefined, true);
-		}
+	public getViewID(): string
+	{
+		return this.getView().getId();
+	}
+
+	public getViewName(): string
+	{
+		const fullName = this.getFullViewName();
+		const parts = fullName.split(/\./);
+
+		return parts[parts.length - 1];
+	}
+
+	public getFullViewName(): string
+	{
+		return this.getView().getViewName();
 	}
 }

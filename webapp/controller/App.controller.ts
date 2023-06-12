@@ -6,8 +6,5 @@ import BaseController from "./BaseController";
  */
 export default class App extends BaseController
 {
-	public onInit()
-	{
-		
-	}
+
 }
