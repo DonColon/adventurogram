@@ -12,7 +12,7 @@
 		"i18n": "i18n/i18n.properties",
 		
 		"dataSources": {
-			"TripPinService": {
+			"TrippinService": {
 				"uri": "https://services.odata.org/TripPinRESTierService/",
 				"type": "OData",
 				"settings": {
@@ -66,8 +66,8 @@
 					"bundleName": "com.dardan.rrafshi.adventurogram.i18n.i18n"
 				}
 			},
-			"TripPin": {
-				"dataSource": "TripPinService",
+			"trippin": {
+				"dataSource": "TrippinService",
 				"type": "sap.ui.model.odata.v4.ODataModel",
 				"preload": true
 			}
@@ -80,6 +80,7 @@
 				"viewPath": "com.dardan.rrafshi.adventurogram.view",
 				"controlId": "app",
 				"controlAggregation": "pages",
+				"transition": "show",
 				"async": true
 			},
 			"routes": [
@@ -87,12 +88,21 @@
 					"pattern": "",
 					"name": "main",
 					"target": "main"
+				},
+				{
+					"pattern": "customer-service",
+					"name": "customer-service",
+					"target": "customerService"
 				}
 			],
 			"targets": {
 				"main": {
 					"viewId": "main",
 					"viewName": "Main"
+				},
+				"customerService": {
+					"viewId": "customer-service",
+					"viewName": "CustomerService"
 				}
 			}
 		}

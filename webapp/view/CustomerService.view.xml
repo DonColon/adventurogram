@@ -1,0 +1,14 @@
+<mvc:View
+	controllerName="com.dardan.rrafshi.adventurogram.controller.CustomerService"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+    <Page 
+		title="{i18n>appTitle}" 
+		titleAlignment="Center" 
+		enableScrolling="false"
+		showNavButton="true"
+		navButtonPress="onBackward">
+        
+	</Page>
+</mvc:View>
