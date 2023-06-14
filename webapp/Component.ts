@@ -11,13 +11,17 @@ export default class AppComponent extends UIComponent
 		manifest: "json"
 	};
 
-	public init()
+	public async init()
 	{
 		super.init();
+
+		const serviceModel = await models.createServiceModel(this);
+		this.setModel(serviceModel, "serviceModel");
 
 		this.setModel(models.createDeviceModel(), "deviceModel");
 		this.setModel(models.createConfigModel(), "configModel");
 		this.setModel(models.createDataModel(), "dataModel");
+		this.setModel(models.createManifest(this), "manifest");
 
 		const router = this.getRouter()
 		router.initialize();
