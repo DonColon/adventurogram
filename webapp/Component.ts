@@ -1,5 +1,5 @@
 import UIComponent from "sap/ui/core/UIComponent";
-import models from "./model/models";
+import { models } from "./model/models";
 
 
 /**

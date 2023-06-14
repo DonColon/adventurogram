@@ -3,12 +3,14 @@ import BindingMode from "sap/ui/model/BindingMode";
 import * as Device from "sap/ui/Device";
 import UIComponent from "sap/ui/core/UIComponent";
 import ODataModel from "sap/ui/model/odata/v4/ODataModel";
-import { ModelFormatter } from "./formatter";
+
+import { formatter } from "./formatter";
 
 
-export default {
-
-	createConfigModel: () => {
+export namespace models
+{
+	export function createConfigModel()
+	{
 		const configModel = new JSONModel({
 			serviceTiles: [{
 				id: "customer-service",
@@ -20,18 +22,20 @@ export default {
 
 		configModel.setDefaultBindingMode(BindingMode.OneWay);
 		return configModel;
-	},
+	}
 
-	createDataModel: () => {
+	export function createDataModel()
+	{
 		const dataModel = new JSONModel({
 
 		});
 
 		dataModel.setDefaultBindingMode(BindingMode.TwoWay);
 		return dataModel;
-	},
+	}
 
-	createServiceModel: async (component: UIComponent) => {
+	export async function createServiceModel(component: UIComponent)
+	{
 		const serviceMetadata: any = {};
 
 		for(const [ name, model ] of Object.entries(component.getOwnModels())) {
@@ -39,7 +43,7 @@ export default {
 				const metaModel = model.getMetaModel();
 
 				const data = await metaModel.requestData();
-				const metadata = ModelFormatter.formatServiceMetadata(data);
+				const metadata = formatter.formatServiceMetadata(data);
 
 				serviceMetadata[name] = metadata;
 			}
@@ -48,18 +52,19 @@ export default {
 		const serviceModel = new JSONModel(serviceMetadata);
 		serviceModel.setDefaultBindingMode(BindingMode.OneWay);
 		return serviceModel;
-	},
+	}
 
-	createDeviceModel: () => {
+	export function createDeviceModel()
+	{
 		const deviceModel = new JSONModel(Device);
 		deviceModel.setDefaultBindingMode(BindingMode.OneWay);
 		return deviceModel;
-	},
+	}
 
-	createManifest: (component: UIComponent) => {
+	export function createManifest(component: UIComponent)
+	{
 		const manifest = new JSONModel(component.getManifest());
 		manifest.setDefaultBindingMode(BindingMode.OneWay);
 		return manifest;
 	}
-
-};
+}

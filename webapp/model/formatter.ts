@@ -1,4 +1,4 @@
-export namespace ModelFormatter
+export namespace formatter
 {   
     export function formatServiceMetadata(data: any)
     {
